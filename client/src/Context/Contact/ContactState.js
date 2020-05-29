@@ -109,12 +109,7 @@ const ContactState = (props) => {
     
         {props.children}
 
-
-
-
-
-
-    </ContactContext.Provider>
+        </ContactContext.Provider>
 
     );
 
