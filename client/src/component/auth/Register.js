@@ -2,22 +2,25 @@ import React,{useState,useContext,useEffect} from 'react'
 import AlertContext from "../../Context/Alert/AlertContext"
 import AuthContext from "../../Context/auth/AuthContext"
 
-export const Register = () => {
+export const Register = (props) => {
     const alertcontext = useContext(AlertContext);
     const authcontext = useContext(AuthContext);
 
     const {setAlert}= alertcontext;
-    const {register,error,clearErrors}= authcontext;
+    const {register,error,clearErrors,isAuthenticated}= authcontext;
 
     useEffect(() => {
+        if(isAuthenticated){
+            props.history.push('/');
+        }
         if(error==='User already exists'){
             setAlert(error,'danger');
             clearErrors();
         }
-       
+        // eslint-disable-next-line
+}, [error,isAuthenticated,props.history])
 
-        
-    }, [error])
+    
 
 
     const [user,setUser]=useState({
@@ -36,7 +39,7 @@ export const Register = () => {
 
     const onSubmit =(e) =>{
         e.preventDefault();
-        if (name==""||email==""||password==""){
+        if (name===""||email===""||password===""){
             setAlert('Please set all fields ','danger')
         }else if(password!==password2){
             setAlert('Passwords do not match','danger')
