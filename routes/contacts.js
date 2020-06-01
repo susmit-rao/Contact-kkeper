@@ -64,7 +64,7 @@ router.put('/:id',auth,async (req,res) =>{
             return res.status(401).json({msg:'You are not authorised'});
         }
 
-        contact =await Contact.findOneAndUpdate(req.params.id,{$set:contactFields},{new:true})
+        contact =await Contact.findByIdAndUpdate(req.params.id,{$set:contactFields},{new:true});
         res.json(contact);
 
     } catch (err) {

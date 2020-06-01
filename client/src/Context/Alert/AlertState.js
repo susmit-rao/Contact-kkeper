@@ -2,7 +2,7 @@ import React,{useReducer} from 'react';
 import { v4 as uuid} from 'uuid';
 import AlertContext from './AlertContext'
 import AlertReducer from './AlertReducer'
-import axios from 'axios'
+
 import {
     SET_Alert,
     REMOVE_Alert
@@ -23,6 +23,12 @@ const AlertState = (props) => {
         setTimeout(()=>dispatch({type:REMOVE_Alert,payload:id}),5000)
 
     }
+
+    
+
+
+
+
     return (
     <AlertContext.Provider
     value={{

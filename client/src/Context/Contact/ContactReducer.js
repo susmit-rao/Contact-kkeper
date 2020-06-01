@@ -4,7 +4,10 @@ import {ADD_Contact,
     CLEAR_Current,
     UPDATE_Contact,
     FILTER_Contacts,
-    CLEAR_Filter} from '../types'
+    CLEAR_Filter,
+    CONTACT_ERROR,
+    GET_Contacts,
+    CLEAR_Contacts} from '../types'
 
 
 
@@ -13,14 +16,35 @@ export default(state,action) =>{
         case ADD_Contact:{
             return{
                 ...state,
-                contacts:[...state.contacts,action.payload]
+                contacts:[action.payload,...state.contacts],
+                loading:false
+
             }
         }
+        case GET_Contacts:{
+            return{
+                ...state,
+                contacts:action.payload,
+                loading:false
+            }
+        }
+        case CLEAR_Contacts:{
+            return{
+                ...state,
+                contacts:null,
+                filter:null,
+                error:null
+            }
+        }
+
+
         
         case DELETE_Contact:{
             return{
                 ...state,
-                contacts: state.contacts.filter(contact => contact.id!==action.payload)
+                contacts: state.contacts.filter(contact => contact._id!==action.payload),
+                loading:false
+
             }
         }
 
@@ -40,7 +64,9 @@ export default(state,action) =>{
         case UPDATE_Contact:{
             return{
                 ...state,
-                contacts:state.contacts.map(contact =>contact.id===action.payload.id ? action.payload:contact)
+                contacts:state.contacts.map(contact =>contact._id===action.payload._id ? action.payload:contact),
+                loading:false
+
             }
         }
 
@@ -59,6 +85,13 @@ export default(state,action) =>{
             return{
                 ...state,
                 filter:null
+            }
+        }
+
+        case CONTACT_ERROR:{
+            return{
+                ...state,
+                error:action.payload
             }
         }
 
